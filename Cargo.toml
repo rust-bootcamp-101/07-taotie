@@ -9,9 +9,11 @@ edition = "2021"
 anyhow = "1.0.86"
 arrow = { version = "52.0.0", features = ["prettyprint"] }
 chrono = { version = "0.4.38", features = ["serde"] }
+clap = { version = "4.5.8", features = ["derive"] }
 datafusion = { version = "39.0.0", features = ["serde"] }
 parquet = "52.0.0"
 polars = { version = "0.41.3", features = ["parquet", "lazy", "timezones", "polars-sql", "sql"] }
+reedline-repl-rs = { version = "1.1.1", features = ["derive"] }
 serde = { version = "1.0.203", features = ["derive"] }
 serde_json = "1.0.120"
 tokio = { version = "1.38.0", features = ["rt-multi-thread", "rt", "macros"] }
