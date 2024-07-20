@@ -1,7 +1,9 @@
 use std::ops::Deref;
 
 use arrow::util::pretty::pretty_format_batches;
-use datafusion::prelude::{DataFrame, NdJsonReadOptions, SessionConfig, SessionContext};
+use datafusion::prelude::{
+    CsvReadOptions, DataFrame, NdJsonReadOptions, SessionConfig, SessionContext,
+};
 
 use crate::{
     cli::{ConnectOpts, DatasetConn},
@@ -17,21 +19,23 @@ impl Backend for DataFusionBackend {
             DatasetConn::Postgres(_) => {
                 println!("Postgres connection is not supported yet")
             }
-            DatasetConn::Csv(filename) => {
-                self.register_csv(&opts.name, filename, Default::default())
+            DatasetConn::Csv(file_opt) => {
+                let options = CsvReadOptions::default()
+                    .file_extension(&file_opt.ext)
+                    .file_compression_type(file_opt.compression);
+                self.register_csv(&opts.name, &file_opt.filename, options)
                     .await?;
             }
             DatasetConn::Parquet(filename) => {
                 self.register_parquet(&opts.name, filename, Default::default())
                     .await?;
             }
-            DatasetConn::NdJson(filename) => {
-                self.register_json(
-                    &opts.name,
-                    filename,
-                    NdJsonReadOptions::default().file_extension(".ndjson"),
-                )
-                .await?;
+            DatasetConn::NdJson(file_opt) => {
+                let options = NdJsonReadOptions::default()
+                    .file_extension(&file_opt.ext)
+                    .file_compression_type(file_opt.compression);
+                self.register_json(&opts.name, &file_opt.filename, options)
+                    .await?;
             }
         }
 

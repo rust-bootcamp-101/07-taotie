@@ -1,5 +1,5 @@
 [default.extend-words]
-Nd = "Nd"
+Nd = "Nd" # 设置某些单词拼写能通过验证，如 NdJson
 
 [files]
 extend-exclude = ["CHANGELOG.md", "notebooks/*"]
