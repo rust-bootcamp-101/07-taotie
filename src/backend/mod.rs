@@ -1,3 +1,3 @@
-mod data_fusion;
+mod fusion;
 
-pub use data_fusion::*;
+pub use fusion::DataFusionBackend;
