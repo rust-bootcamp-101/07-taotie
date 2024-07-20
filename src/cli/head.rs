@@ -6,7 +6,7 @@ use super::ReplResult;
 
 #[derive(Debug, Parser)]
 pub struct HeadOpts {
-    #[arg(long, help = "The name of the dataset")]
+    #[arg(help = "The name of the dataset")]
     pub name: String,
 
     #[arg(short, long, help = "The number of rows to show")]
